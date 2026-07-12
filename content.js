@@ -10,13 +10,19 @@ function Redirecter() {
   }
 
   //Regex to find subtitles (didn't use this for video since there is many .mp4 urls for each quality)
-  let subtitleUrl = '';
+  let subtitleUrls = [];
   const scripts = document.querySelectorAll('script');
+  
   for (const script of scripts) {
-    const vttMatch = script.textContent.match(/file:\s*"(https:\/\/[^"]+\.vtt[^"]*)"/);
-    if (vttMatch) {
-      subtitleUrl = vttMatch[1];
-      break; // when match stop
+    // the "g" at the end mean to find it global (all matches)
+    const regex = /file:\s*"(https:\/\/[^"]+\.vtt[^"]*)"/g;
+    let match;
+    
+    while ((match = regex.exec(script.textContent)) !== null) {
+      // prevent dupes
+      if (!subtitleUrls.includes(match[1])) {
+        subtitleUrls.push(match[1]);
+      }
     }
   }
 

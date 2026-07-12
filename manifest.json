@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Pirate Robbers",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Grabs VideoServer and redirects to a custom player",
   "content_scripts": [
     {
