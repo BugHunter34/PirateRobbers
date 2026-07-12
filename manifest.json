@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Pirate Robbers",
+  "version": "0.1.5",
+  "description": "Grabs VideoServer and redirects to a custom player",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.prehraj.to/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}

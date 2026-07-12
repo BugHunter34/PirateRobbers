@@ -1,0 +1,52 @@
+
+function Redirecter() {
+  // Query for video server
+  const videoElement = document.getElementById('content_video_html5_api');
+  const videoUrl = videoElement ? videoElement.getAttribute('src') : '';
+  const titleHeading = document.querySelector('h1.h2.title.margin-bottom-0.word-break');
+
+  // if the element isn't there (HomePage or button exists) -> Stop
+  if (!videoElement || document.querySelector('#redir-btn')) {
+    return;
+  }
+
+  // btn UI
+  const btn = document.createElement('button');
+  btn.id = 'redir-btn';
+  btn.innerText = 'Injected Redirecter';
+  
+  // Basic inline CSS for the button
+  btn.style.alignItems = 'center';
+  btn.style.webkitAppearance = 'none';
+  btn.style.backgroundColor = '#d82381';
+  btn.style.backgroundImage = 'linear-gradient(180deg, #e24d52, #c22026)';
+  btn.style.backgroundPosition = '0 10%';
+  btn.style.backgroundSize = '200% 200%';
+  btn.style.border = '.125rem solid transparent';
+  btn.style.borderRadius = '.25rem';
+  btn.style.color = '#ffffff'; // Fallback for var(--color-inverse)
+  btn.style.cursor = 'pointer';
+  btn.style.display = 'inline-flex';
+  btn.style.fontSize = '1.25rem';
+  btn.style.fontWeight = '700';
+  btn.style.justifyContent = 'center';
+  btn.style.lineHeight = '1.375rem';
+  btn.style.margin = '0 0 0 .75rem';
+  btn.style.padding = '.625rem 1.25rem';
+  btn.style.textAlign = 'center';
+  btn.style.transition = 'background-color .25s ease-out, color .25s ease-out';
+  btn.style.verticalAlign = 'middle';
+
+  // click Listener
+  btn.addEventListener('click', () => {
+    // The Redirect
+    window.location.href = `${videoUrl}`;
+    // https://planetaanime.andhyy.com/play?=${videoUrl}
+  });
+
+  titleHeading.appendChild(btn)
+  console.log(videoUrl)
+}
+
+// waits 2s for the page to load
+setTimeout(Redirecter, 2000)
