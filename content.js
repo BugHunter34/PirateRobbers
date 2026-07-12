@@ -40,8 +40,7 @@ function Redirecter() {
   // click Listener
   btn.addEventListener('click', () => {
     // The Redirect
-    window.location.href = `${videoUrl}`;
-    // https://planetaanime.andhyy.com/play?=${videoUrl}
+    window.location.href = `https://player.andhyy.com/player/${videoUrl}`;
   });
 
   titleHeading.appendChild(btn)
