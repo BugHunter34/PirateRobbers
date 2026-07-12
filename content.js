@@ -1,4 +1,3 @@
-
 function Redirecter() {
   // Query for video server
   const videoElement = document.getElementById('content_video_html5_api');
@@ -8,6 +7,17 @@ function Redirecter() {
   // if the element isn't there (HomePage or button exists) -> Stop
   if (!videoElement || document.querySelector('#redir-btn')) {
     return;
+  }
+
+  //Regex to find subtitles (didn't use this for video since there is many .mp4 urls for each quality)
+  let subtitleUrl = '';
+  const scripts = document.querySelectorAll('script');
+  for (const script of scripts) {
+    const vttMatch = script.textContent.match(/file:\s*"(https:\/\/[^"]+\.vtt[^"]*)"/);
+    if (vttMatch) {
+      subtitleUrl = vttMatch[1];
+      break; // when match stop
+    }
   }
 
   // btn UI
@@ -24,7 +34,7 @@ function Redirecter() {
   btn.style.backgroundSize = '200% 200%';
   btn.style.border = '.125rem solid transparent';
   btn.style.borderRadius = '.25rem';
-  btn.style.color = '#ffffff'; // Fallback for var(--color-inverse)
+  btn.style.color = '#ffffff'; 
   btn.style.cursor = 'pointer';
   btn.style.display = 'inline-flex';
   btn.style.fontSize = '1.25rem';
@@ -39,13 +49,21 @@ function Redirecter() {
 
   // click Listener
   btn.addEventListener('click', () => {
+    // encodeURIComponent prevents '?' and '&' in CDN tokens from breaking the URL
+    const encodedVideo = encodeURIComponent(videoUrl);
+    let targetUrl = `https://player.andhyy.com/player/?video=${encodedVideo}`;
+    
+    // only append if they exist
+    if (subtitleUrl) {
+      targetUrl += `&subtitles=${encodeURIComponent(subtitleUrl)}`;
+    }
+
     // The Redirect
-    window.location.href = `https://player.andhyy.com/player/${videoUrl}`;
+    window.location.href = targetUrl;
   });
 
-  titleHeading.appendChild(btn)
-  console.log(videoUrl)
+  titleHeading.appendChild(btn);
 }
 
 // waits 2s for the page to load
-setTimeout(Redirecter, 2000)
+setTimeout(Redirecter, 2000);
