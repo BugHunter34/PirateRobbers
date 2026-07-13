@@ -55,17 +55,18 @@ function Redirecter() {
 
   // click Listener
   btn.addEventListener('click', () => {
-    // encodeURIComponent prevents '?' and '&' in CDN tokens from breaking the URL
-    const encodedVideo = encodeURIComponent(videoUrl);
-    let targetUrl = `https://player.andhyy.com/player/?video=${encodedVideo}`;
-    
-    // only append if they exist
-    if (subtitleUrl) {
-      targetUrl += `&subtitles=${encodeURIComponent(subtitleUrl)}`;
-    }
+  // encodeURIComponent prevents '?' and '&' in CDN tokens from breaking the URL
+  const encodedVideo = encodeURIComponent(videoUrl);
+  let targetUrl = `https://player.andhyy.com/player/?video=${encodedVideo}`;
 
-    // The Redirect
-    window.location.href = targetUrl;
+    // loop and append all
+  subtitleUrls.forEach((url, index) => {
+      const paramName = index === 0 ? 'subtitles' : `subtitles${index + 1}`;
+      targetUrl += `&${paramName}=${encodeURIComponent(url)}`;
+  });
+
+  // The Redirect
+  window.location.href = targetUrl;
   });
 
   titleHeading.appendChild(btn);
