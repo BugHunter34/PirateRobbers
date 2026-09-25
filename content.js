@@ -57,7 +57,7 @@ function Redirecter() {
   btn.addEventListener('click', () => {
   // encodeURIComponent prevents '?' and '&' in CDN tokens from breaking the URL
   const encodedVideo = encodeURIComponent(videoUrl);
-  let targetUrl = `https://player.andhyy.com/player/?video=${encodedVideo}`;
+  let targetUrl = `https://player.andhyy.com/?watch=${encodedVideo}`;
 
     // loop and append all
   subtitleUrls.forEach((url, index) => {
